@@ -15,7 +15,7 @@ pipeline {
             steps {
                 // Execute o script shell
                 script {
-                    sh 'sudo -S "123" ./criarpagina.sh'
+                    sh 'echo "sua_senha" | sudo -S ./criarpagina.sh'
                 }
             }
         }
