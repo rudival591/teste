@@ -1,7 +1,7 @@
 pipeline {
     agent any
-       
    
+  
     stages {
         stage('Clonar Repositório') {
             steps {
@@ -11,12 +11,12 @@ pipeline {
                 }
             }
         }
-
-        stage('Executar Script Shell') {
+    
+    stages {
+        stage('Executar Script Shell como Root') {
             steps {
-                // Execute o script shell
                 script {
-                    sh './criarpagina.sh'
+                    sh 'sudo ./seu_script.sh'
                 }
             }
         }
