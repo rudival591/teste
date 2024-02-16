@@ -1,14 +1,7 @@
 pipeline {
     agent any
-
-        stages {
-        stage('Limpar Diretório de Trabalho') {
-            steps {
-                deleteDir()
-            }
-        }
-
-    
+       
+   
     stages {
         stage('Clonar Repositório') {
             steps {
