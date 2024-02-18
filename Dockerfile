@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apk --no-cache add git
 
 # Clone o repositório do GitHub para /tmp
-RUN git clone https://github.com/rudival591/teste.git /tmp/teste
+RUN git clone https://github.com/rudival591/teste.git /tmp
 
 # Mova o arquivo teste.sh para o diretório de trabalho
 RUN mv /tmp/teste/teste.sh .
