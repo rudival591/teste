@@ -1,24 +1,35 @@
 pipeline {
-    agent any
-   
-  
+ agente qualquer
+
+    environment {
+        // Defina como variáveis de ambiente necessário
+        GIT_REPO = 'https://github.com/rudival591/teste.git'
+        DOCKER_IMAGE = 'meu_container'
+        SCRIPT_PATH = 'caminho /tmp/teste.sh'
+    }
+
     stages {
-        stage('Clonar Repositório') {
+        stage('Clone and Build Docker Image') {
             steps {
-                // Clone seu repositório Git
-                script {
-                    git 'https://github.com/rudival591/teste.git'
+                script {{
+                    // Caixa ou repositório do GitHub
+                    checkout([class : 'GitSCM', galhos: [[nome: '* / main']], userRemoteConfigs: [[url : GIT_REPO]]])
+
+                    // Construa a imagem Docker
+                    docker.construir(DOCKER_IMAGE)
                 }
             }
         }
-    
-    stages {
-        stage('Executar Script Shell como Root') {
+
+        stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'sudo ./seu_script.sh'
+                    // Execute o contador Docker
+                    docker.image(DOCKER_IMAGE).run("--name ${DOCKER_IMAGE}_container", "--rm -v ${pwd()}:${SCRIPT_PATH"./ $ {SCRIPT_PATH}")
                 }
             }
         }
     }
 }
+
+
