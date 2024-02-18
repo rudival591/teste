@@ -10,7 +10,7 @@ pipeline {
         stage('Clone and Build Docker Image') {
             steps {
                 script {
-                    // Baixar o repositório do GitHub para /srv1
+                    // Baixar o repositório do GitHub para /srv1 (corrigido)
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: GIT_REPO, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/srv1']]]]])
 
                     // Construir a imagem Docker
