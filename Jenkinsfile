@@ -4,7 +4,7 @@ pipeline {
     environment {
         GIT_REPO = 'https://github.com/rudival591/teste.git'
         DOCKER_IMAGE = 'meu_container'
-        SCRIPT_PATH = '/tmp/teste.sh'
+        SCRIPT_PATH = '/teste/teste.sh'
     }
 
     stages {
