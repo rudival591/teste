@@ -11,8 +11,8 @@ pipeline {
         stage('Clone and Build Docker Image') {
             steps {
                 script {
-                    // Baixar o repositório do GitHub
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: GIT_REPO]]])
+                    // Baixar o repositório do GitHub para /tmp
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: GIT_REPO, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/tmp']]]]])
 
                     // Construir a imagem Docker
                     docker.build(DOCKER_IMAGE)
@@ -24,12 +24,13 @@ pipeline {
             steps {
                 script {
                     // Executar o contêiner Docker
-                    docker.image(DOCKER_IMAGE).run("--name ${DOCKER_IMAGE}_container", "--rm -v ${pwd()}:${SCRIPT_PATH}", "/bin/bash", "-c", "./${SCRIPT_PATH}")
+                    docker.image(DOCKER_IMAGE).run("--name ${DOCKER_IMAGE}_container", "--rm -v /tmp:${SCRIPT_PATH}", "/bin/bash", "-c", "./${SCRIPT_PATH}")
                 }
             }
         }
     }
 }
+
 
 
 
