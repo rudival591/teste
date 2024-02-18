@@ -1,30 +1,30 @@
-#!/bin/bash
+# Use a imagem oficial do Nginx como base
+FROM nginx:latest
 
 # Nome do diretório
-diretorio="teste"
+ENV DIRETORIO teste
 
 # Nome do arquivo da página
-pagina="index.html"
+ENV PAGINA index.html
 
-# Diretório padrão do Apache2 no Debian/Ubuntu
-diretorio_apache="/var/www/html"
+# Diretório padrão do Nginx
+ENV DIRETORIO_NGINX /usr/share/nginx/html
 
 # Caminho completo do diretório
-caminho_diretorio="$diretorio_apache/$diretorio"
+ENV CAMINHO_DIRETORIO ${DIRETORIO_NGINX}/${DIRETORIO}
 
 # Caminho completo do arquivo
-caminho_completo="$caminho_diretorio/$pagina"
+ENV CAMINHO_COMPLETO ${CAMINHO_DIRETORIO}/${PAGINA}
 
 # Conteúdo da página
-conteudo="<html><head><title>Teste</title></head><body><h1>Teste Testando</h1></body></html>"
+ENV CONTEUDO "<html><head><title>Teste</title></head><body><h1>Teste Testando</h1></body></html>"
 
 # Criar diretório se não existir
-mkdir -p "$caminho_diretorio"
+RUN mkdir -p ${CAMINHO_DIRETORIO}
 
 # Escrever conteúdo no arquivo
-echo "$conteudo" > "$caminho_completo"
+RUN echo "${CONTEUDO}" > "${CAMINHO_COMPLETO}"
 
-# Reiniciar o Apache2 para aplicar as alterações (usando systemctl)
-systemctl restart apache2
+# Reiniciar o Nginx (usando serviço supervisor, pois systemctl não está disponível em containers)
+CMD service nginx restart && tail -f /dev/null
 
-echo "Página criada com sucesso em: $caminho_completo"
