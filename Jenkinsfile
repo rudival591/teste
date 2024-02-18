@@ -4,7 +4,6 @@ pipeline {
     environment {
         GIT_REPO = 'https://github.com/rudival591/teste.git'
         DOCKER_IMAGE = 'meu_container'
-        SCRIPT_PATH = '/criarpagina.sh'
     }
 
     stages {
@@ -26,9 +25,9 @@ pipeline {
                     // Executar o contêiner Docker
                     docker.image(DOCKER_IMAGE).inside {
                         // Comandos a serem executados dentro do contêiner
-                        sh "mv /srv/criarpagina.sh ."  // Mover o script para o diretório atual
-                        sh "chmod +x criarpagina.sh"
-                        sh "./criarpagina.sh"
+                        sh "ls -la /srv" // Listar os arquivos para debug
+                        sh "chmod +x /srv/criarpagina.sh"
+                        sh "/srv/criarpagina.sh"
                     }
                 }
             }
