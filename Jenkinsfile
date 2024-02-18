@@ -24,7 +24,13 @@ pipeline {
             steps {
                 script {
                     // Executar o contêiner Docker
-                    docker.image(DOCKER_IMAGE).run("--name ${DOCKER_IMAGE}_container", "--rm -v /srv:${SCRIPT_PATH}", "/bin/bash", "-c", "./${SCRIPT_PATH}")
+                    //docker.image(DOCKER_IMAGE).run("--name ${DOCKER_IMAGE}_container", "--rm -v /srv:${SCRIPT_PATH}", "/bin/bash", "-c", "./${SCRIPT_PATH}")
+                    // Executar o contador Docker
+estivador.imagem(DOCKER_IMAGE).dentro {
+    // Comandos a serem executados dentro do contêiner
+ sh "chmod + x criarpagina.sh"
+ sh "./criarpagina.sh "
+}
                 }
             }
         }
