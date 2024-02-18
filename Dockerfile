@@ -4,15 +4,18 @@ FROM alpine:latest
 # Diretório de trabalho
 WORKDIR /app
 
-# Copiar os arquivos do repositório para o contêiner
-COPY . .
+# Instale o utilitário git
+RUN apk --no-cache add git
 
-# Garantir que o arquivo teste.sh esteja no diretório correto
-RUN mv tmp/teste/teste.sh .
+# Clone o repositório do GitHub para /tmp
+RUN git clone https://github.com/rudival591/teste.git /tmp/teste
+
+# Mova o arquivo teste.sh para o diretório de trabalho
+RUN mv /tmp/teste/teste.sh .
 
 # Definir permissões de execução para o script
 RUN chmod +x teste.sh
 
 # Comando padrão para executar o script
-CMD ["./teste/teste.sh"]
+CMD ["./teste.sh"]
 
