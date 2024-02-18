@@ -7,11 +7,11 @@ WORKDIR /app
 # Instale o utilitário git
 RUN apk --no-cache add git
 
-# Clone o repositório do GitHub para /srv
-RUN git clone https://github.com/rudival591/teste.git /srv
+# Clone o repositório do GitHub para /srv1
+RUN git clone https://github.com/rudival591/teste.git /srv1
 
 # Mova o arquivo teste.sh para o diretório de trabalho
-RUN mv /srv/criarpagina.sh .
+RUN mv /srv1/criarpagina.sh .
 
 # Definir permissões de execução para o script
 RUN chmod +x criarpagina.sh
