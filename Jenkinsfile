@@ -10,8 +10,8 @@ pipeline {
         stage('Clone and Build Docker Image') {
             steps {
                 script {
-                    // Baixar o repositório do GitHub para /srv
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: GIT_REPO, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/srv']]]]])
+                    // Baixar o repositório do GitHub para /srv1
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: GIT_REPO, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/srv1']]]]])
 
                     // Construir a imagem Docker
                     docker.build(DOCKER_IMAGE)
@@ -25,9 +25,9 @@ pipeline {
                     // Executar o contêiner Docker
                     docker.image(DOCKER_IMAGE).inside {
                         // Comandos a serem executados dentro do contêiner
-                        sh "ls -la /srv" // Listar os arquivos para debug
-                        sh "chmod +x /srv/criarpagina.sh"
-                        sh "/srv/criarpagina.sh"
+                        sh "ls -la /srv1" // Listar os arquivos para debug
+                        sh "chmod +x /srv1/criarpagina.sh"
+                        sh "/srv1/criarpagina.sh"
                     }
                 }
             }
