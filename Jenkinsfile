@@ -24,19 +24,14 @@ pipeline {
             steps {
                 script {
                     // Executar o contêiner Docker
-                    //docker.image(DOCKER_IMAGE).run("--name ${DOCKER_IMAGE}_container", "--rm -v /srv:${SCRIPT_PATH}", "/bin/bash", "-c", "./${SCRIPT_PATH}")
-                   // Executar o contêiner Docker
-docker.image(DOCKER_IMAGE).inside {
-    // Comandos a serem executados dentro do contêiner
-    sh "chmod +x criarpagina.sh"
-    sh "./criarpagina.sh"
-}
+                    docker.image(DOCKER_IMAGE).inside {
+                        // Comandos a serem executados dentro do contêiner
+                        sh "mv /srv/criarpagina.sh ."  // Mover o script para o diretório atual
+                        sh "chmod +x criarpagina.sh"
+                        sh "./criarpagina.sh"
+                    }
                 }
             }
         }
     }
 }
-
-
-
-
