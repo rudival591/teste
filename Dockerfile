@@ -8,11 +8,11 @@ WORKDIR /app
 COPY . .
 
 # Garantir que o arquivo teste.sh esteja no diretório correto
-RUN mv tmp/teste.sh .
+RUN mv tmp/teste/teste.sh .
 
 # Definir permissões de execução para o script
 RUN chmod +x teste.sh
 
 # Comando padrão para executar o script
-CMD ["./teste.sh"]
+CMD ["./teste/teste.sh"]
 
